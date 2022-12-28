@@ -1,0 +1,162 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://scripts/PlayerController.gd" type="Script" id=1]
+[ext_resource path="res://game art/character/player/Character.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 2.5 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 5.0
+height = 4.0
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 4.0
+height = 4.0
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle_down"
+loop = true
+step = 0.2
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 48, -0.25, 0, 0.25, 0, 49, -0.25, 0, 0.25, 0, 50, -0.25, 0, 0.25, 0, 51, -0.25, 0, 0.25, 0, 52, -0.25, 0, 0.25, 0, 53, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 )
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "idle_left"
+loop = true
+step = 0.2
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 54, -0.25, 0, 0.25, 0, 55, -0.25, 0, 0.25, 0, 56, -0.25, 0, 0.25, 0, 57, -0.25, 0, 0.25, 0, 58, -0.25, 0, 0.25, 0, 59, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 )
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "idle_right"
+step = 0.2
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 60, -0.25, 0, 0.25, 0, 61, -0.25, 0, 0.25, 0, 62, -0.25, 0, 0.25, 0, 63, -0.25, 0, 0.25, 0, 64, -0.25, 0, 0.25, 0, 65, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 )
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "idle_up"
+loop = true
+step = 0.2
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 66, -0.25, 0, 0.25, 0, 67, -0.25, 0, 0.25, 0, 68, -0.25, 0, 0.25, 0, 69, -0.25, 0, 0.25, 0, 70, -0.25, 0, 0.25, 0, 71, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 )
+}
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "idle_down"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "idle_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=13]
+blend_point_0/node = SubResource( 9 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 10 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 11 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 12 )
+blend_point_3/pos = Vector2( 0, -1 )
+
+[sub_resource type="AnimationNodeStateMachine" id=14]
+states/idle/node = SubResource( 13 )
+states/idle/position = Vector2( 225, 81 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 6
+vframes = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+modulate = Color( 0, 1, 0.0156863, 1 )
+position = Vector2( -1, 1.5 )
+shape = SubResource( 1 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, -2 )
+shape = SubResource( 2 )
+
+[node name="SwordHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
+visible = false
+modulate = Color( 0.662745, 0, 1, 1 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/idle_down = SubResource( 5 )
+anims/idle_left = SubResource( 6 )
+anims/idle_right = SubResource( 7 )
+anims/idle_up = SubResource( 8 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 14 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 15 )
+parameters/idle/blend_position = Vector2( 0, 0 )
