@@ -37,8 +37,15 @@ func move_state() -> void:
 		anim_state.travel("idle")
 		velocity = Vector2.ZERO
 	
+	if Input.is_action_just_pressed("attack"):
+		state = ATTACK
+	
 	move_and_slide(velocity)
 
 
 func attack_state() -> void:
-	pass
+	velocity = Vector2.ZERO
+	anim_state.travel("attack")
+	
+func attack_complete() -> void:
+	state = MOVE
