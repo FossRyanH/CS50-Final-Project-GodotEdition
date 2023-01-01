@@ -566,7 +566,9 @@ modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 0, -2 )
 shape = SubResource( 2 )
 
-[node name="SwordHitbox" type="Area2D" parent="."]
+[node name="SwordHitbox" type="Area2D" parent="." groups=["Sword"]]
+collision_layer = 16
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
 modulate = Color( 0.662745, 0, 1, 1 )
